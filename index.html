@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presupuesto de Desarrollo – Edward General Services | ADEMA Sistemas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <style>
+    :root {
+      --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;          /* slate-900 */
+      --muted: #475569;         /* slate-600 */
+      --border: #e2e8f0;        /* slate-200 */
+      --accent: #0f172a;        /* brand */
+      --info: #3b82f6;          /* blue-500 */
+      --ok: #16a34a;            /* green-600 */
+      --warn: #f59e0b;          /* amber-500 */
+      --danger: #ef4444;        /* red-500 */
+      --shadow: 0 12px 30px rgba(2, 6, 23, .08);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 40px 20px; background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.7;
+    }
+    .container {
+      max-width: 960px; margin: 0 auto; background: var(--surface); border-top: 6px solid var(--accent);
+      border-radius: var(--radius); box-shadow: var(--shadow); padding: 48px 56px;
+    }
+    header { text-align: center; margin-bottom: 36px; }
+    header img { max-width: 160px; margin-bottom: 12px; }
+    h1 { font-size: 2.1rem; margin: 0; letter-spacing: .2px; }
+    header p { color: var(--muted); margin: 6px 0 0; }
+
+    h2 { color: var(--accent); font-size: 1rem; text-transform: uppercase; letter-spacing: 1.6px; margin: 28px 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    h3 { margin: 16px 0 8px; font-size: 1.15rem; }
+    p, ul, ol { color: var(--muted); margin: 0 0 12px; }
+    ul, ol { padding-left: 22px; }
+    strong { color: var(--text); }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: #f8fafc; color: #334155; }
+
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
+    .nav a { text-decoration: none; border: 1px solid var(--border); padding: 8px 12px; border-radius: 999px; color: #334155; background: #f8fafc; font-size: .9rem; }
+
+    .info { background: #f7faff; border-left: 4px solid var(--info); padding: 14px 16px; border-radius: 8px; margin: 14px 0; }
+    .tip { background: #fefce8; border-left: 4px solid var(--warn); padding: 14px 16px; border-radius: 8px; margin: 14px 0; }
+
+    .grid { display: grid; gap: 18px; grid-template-columns: 1.1fr .9fr; }
+    .card { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; background: #fff; }
+    .kpi-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+    .kpi { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: #f7fafc; }
+    .kpi .label { font-size: .9rem; color: #64748b; }
+    .kpi .value { font-weight: 800; font-size: 1.15rem; color: var(--text); }
+
+    /* Video embed */
+    .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #0b1220; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* Checklist */
+    .checklist { display: grid; gap: 10px; }
+    .check-item { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; }
+    .check-item input { margin-top: 4px; }
+
+    /* Dashboard mock */
+    .bar { height: 16px; background: #e5e7eb; border-radius: 999px; position: relative; overflow: hidden; }
+    .bar .fill { position: absolute; inset: 0 auto 0 0; width: var(--pct, 50%); background: #0ea5e9; } /* sky-500 */
+    .bar .fill.ok { background: #22c55e; } /* green-500 */
+
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+    th { background: #f8fafc; color: #334155; }
+    tfoot td { font-weight: 700; }
+
+    .footer { text-align: center; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); color: #94a3b8; font-size: .9rem; }
+
+    @media (max-width: 900px) { .container { padding: 28px 22px; } .grid { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="https://ademasistemas.com/static/landing/images/logo.svg" alt="Logo Adema Sistemas" onerror="this.onerror=null;this.src='https://placehold.co/160x40/0f172a/ffffff?text=AdemaSistemas';" />
+      <h1>Presupuesto de Desarrollo</h1>
+      <p>Mejoras Sistema de Cuotas · Edward General Services</p>
+      <div class="nav">
+        <a href="#problema">Problema Actual</a>
+        <a href="#solucion">Solución Propuesta</a>
+        <a href="#simulador-interes">Ejemplo de Cálculo</a>
+        <a href="#presupuesto">Presupuesto</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Detalles del Presupuesto</h2>
+      <p>
+        <strong>Cliente:</strong> Edward General Services<br />
+        <strong>Fecha:</strong> 31 de Octubre de 2025<br />
+        <strong>Estado:</strong> <span class="pill"><i class="fa-solid fa-clock" style="color:#f59e0b"></i> Pendiente de Aprobación</span>
+      </p>
+    </section>
+
+    <section id="problema">
+      <h2>1) Problema Actual</h2>
+      <p>Su sistema de cuotas actual <strong>no calcula intereses por mora</strong> automáticamente, lo que significa que debe hacerlo manualmente cada vez que un cliente se atrasa en sus pagos. Además, <strong>no puede registrar pagos parciales</strong> o adelantos, perdiendo control sobre el flujo de caja y generando confusión en el estado de las cuotas.</p>
+      
+      <div class="info">
+        <p><strong>Impacto en su negocio:</strong> Pérdida de tiempo calculando intereses manualmente, falta de control sobre pagos parciales, y dificultad para mantener un registro claro de las cuentas de sus clientes.</p>
+      </div>
+    </section>
+
+    <section id="solucion">
+      <h2>2) Solución Propuesta</h2>
+      <p>Implementaremos <strong>dos mejoras específicas</strong> que resolverán estos problemas:</p>
+      
+      <div class="grid">
+        <div class="card">
+          <h3><i class="fa-solid fa-percentage" style="color:#ef4444; margin-right:8px"></i>Interés por Mora Automático</h3>
+          <ul>
+            <li>Configuración de <strong>porcentaje de interés diario</strong></li>
+            <li>Cálculo automático basado en días de atraso</li>
+            <li>Opción de cobrar <strong>con o sin interés</strong> según el caso</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-coins" style="color:#16a34a; margin-right:8px"></i>Pagos Parciales</h3>
+          <ul>
+            <li>Registro de <strong>adelantos y pagos parciales</strong></li>
+            <li>Comprobantes automáticos de adelanto</li>
+            <li>Interés calculado sobre <strong>saldo restante</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SIMULADOR INTERÉS ==================== -->
+    <section id="simulador-interes">
+      <h2>3) Ejemplo de Funcionamiento</h2>
+      <div class="card">
+        <h3>Cálculo de Interés por Mora</h3>
+        <p><strong>Cuota original:</strong> $10,000<br />
+        <strong>Adelanto aplicado:</strong> $2,000<br />
+        <strong>% Interés diario configurado:</strong> 0.5%<br />
+        <strong>Días de atraso:</strong> 5<br />
+        <strong>Base para interés:</strong> $10,000 - $2,000 = $8,000<br />
+        <strong>Interés acumulado:</strong> $8,000 × 0.5% × 5 días = $200<br />
+        <strong>Total con interés:</strong> $10,000 + $200 = $10,200<br />
+        <strong>Total sin interés:</strong> $10,000 (opción disponible)</p>
+        
+        <div class="tip">
+          <strong>Beneficio:</strong> El sistema calcula automáticamente y usted decide si aplicar o no el interés según cada caso particular.
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EJEMPLO ADELANTO ==================== -->
+    <section id="ejemplo-adelanto">
+      <h2>4) Comprobante de Adelanto</h2>
+      <div class="card">
+        <h3>Ejemplo de Comprobante Automático</h3>
+        <table>
+          <tbody>
+            <tr><th style="width:260px">Cliente</th><td>Ejemplo Cliente</td></tr>
+            <tr><th>Cuota</th><td>#45 - $10,000</td></tr>
+            <tr><th>Monto de Adelanto</th><td>$2,000</td></tr>
+            <tr><th>Fecha de Adelanto</th><td>31/10/2025</td></tr>
+            <tr><th>Saldo Restante</th><td>$8,000</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:10px; font-size:.9rem; color:#64748b">Se genera automáticamente cuando registra un pago parcial. Las cuotas con adelanto se identifican visualmente en el sistema.</p>
+      </div>
+    </section>
+
+    <!-- ==================== PRESUPUESTO ==================== -->
+    <section id="presupuesto">
+      <h2>5) Presupuesto</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Desarrollo Requerido</h3>
+          <ul>
+            <li>Configuración de interés diario en empresa</li>
+            <li>Cálculo automático de interés por mora</li>
+            <li>Registro de pagos parciales y adelantos</li>
+            <li>Generación de comprobantes automáticos</li>
+            <li>Pruebas y ajustes finales</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Inversión</h3>
+          <table style="margin-top:12px">
+            <tbody>
+              <tr><th>Horas de Desarrollo</th><td>1.5 horas</td></tr>
+              <tr><th>Tarifa por Hora</th><td>USD $30</td></tr>
+              <tr style="background:#f8fafc"><th><strong>Total</strong></th><td><strong>USD $45</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="tip" style="margin-top:12px">
+            <strong>Incluye:</strong> Desarrollo, pruebas, despliegue y soporte post-implementación.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>6) Beneficios Inmediatos</h2>
+      <ul>
+        <li><strong>Ahorro de tiempo:</strong> No más cálculos manuales de intereses</li>
+        <li><strong>Mayor control:</strong> Registro completo de pagos parciales</li>
+        <li><strong>Flexibilidad:</strong> Puede elegir aplicar o no el interés según el caso</li>
+        <li><strong>Profesionalismo:</strong> Comprobantes automáticos para sus clientes</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>7) Próximos Pasos</h2>
+      <p>Una vez aprobado el presupuesto, el desarrollo se completará en <strong>1 día hábil</strong>. Incluye implementación, pruebas y capacitación básica sobre las nuevas funciones.</p>
+      
+      <div class="info">
+        <p><strong>¿Listo para mejorar su sistema?</strong> Confirme este presupuesto y en 24 horas tendrá estas funcionalidades operativas en su sistema.</p>
+      </div>
+    </section>
+
+    <div class="footer">&copy; 2025 ADEMA Sistemas · Soluciones de Software a Medida</div>
+  </div>
+</body>
+</html>
