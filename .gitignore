@@ -1,0 +1,16 @@
+# Archivos grandes
+*.mp4
+*.avi
+*.mov
+*.pdf
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Dependencias (si usas Node.js)
+node_modules/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

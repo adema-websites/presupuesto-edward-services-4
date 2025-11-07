@@ -13,14 +13,14 @@
       --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       --bg: #f8fafc;
       --surface: #ffffff;
-      --text: #0f172a;          /* slate-900 */
-      --muted: #475569;         /* slate-600 */
-      --border: #e2e8f0;        /* slate-200 */
-      --accent: #0f172a;        /* brand */
-      --info: #3b82f6;          /* blue-500 */
-      --ok: #16a34a;            /* green-600 */
-      --warn: #f59e0b;          /* amber-500 */
-      --danger: #ef4444;        /* red-500 */
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #0f172a;
+      --info: #3b82f6;
+      --ok: #16a34a;
+      --warn: #f59e0b;
+      --danger: #ef4444;
       --shadow: 0 12px 30px rgba(2, 6, 23, .08);
       --radius: 12px;
     }
@@ -52,24 +52,6 @@
 
     .grid { display: grid; gap: 18px; grid-template-columns: 1.1fr .9fr; }
     .card { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; background: #fff; }
-    .kpi-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
-    .kpi { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: #f7fafc; }
-    .kpi .label { font-size: .9rem; color: #64748b; }
-    .kpi .value { font-weight: 800; font-size: 1.15rem; color: var(--text); }
-
-    /* Video embed */
-    .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #0b1220; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
-    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-    /* Checklist */
-    .checklist { display: grid; gap: 10px; }
-    .check-item { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; }
-    .check-item input { margin-top: 4px; }
-
-    /* Dashboard mock */
-    .bar { height: 16px; background: #e5e7eb; border-radius: 999px; position: relative; overflow: hidden; }
-    .bar .fill { position: absolute; inset: 0 auto 0 0; width: var(--pct, 50%); background: #0ea5e9; } /* sky-500 */
-    .bar .fill.ok { background: #22c55e; } /* green-500 */
 
     table { width: 100%; border-collapse: collapse; font-size: .95rem; }
     th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
@@ -78,7 +60,10 @@
 
     .footer { text-align: center; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); color: #94a3b8; font-size: .9rem; }
 
-    @media (max-width: 900px) { .container { padding: 28px 22px; } .grid { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .container { padding: 28px 22px; }
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -90,6 +75,8 @@
       <div class="nav">
         <a href="#problema">Problema Actual</a>
         <a href="#solucion">Solución Propuesta</a>
+        <a href="#detalle-validacion">Validación BCRA</a>
+        <a href="#video-bcra">Video Demo</a>
         <a href="#simulador-interes">Ejemplo de Cálculo</a>
         <a href="#presupuesto">Presupuesto</a>
       </div>
@@ -106,40 +93,127 @@
 
     <section id="problema">
       <h2>1) Problema Actual</h2>
-      <p>Su sistema de cuotas actual <strong>no calcula intereses por mora</strong> automáticamente, lo que significa que debe hacerlo manualmente cada vez que un cliente se atrasa en sus pagos. Además, <strong>no puede registrar pagos parciales</strong> o adelantos, perdiendo control sobre el flujo de caja y generando confusión en el estado de las cuotas.</p>
-      
+      <p>
+        Su sistema de cuotas actual <strong>no calcula intereses por mora</strong> automáticamente, lo que significa que debe hacerlo manualmente cada vez que un cliente se atrasa en sus pagos. 
+        Además, <strong>no puede registrar pagos parciales</strong> o adelantos, perdiendo control sobre el flujo de caja y generando confusión en el estado de las cuotas.
+      </p>
+      <p>
+        Por otro lado, en el formulario de solicitud actual:
+      </p>
+      <ul>
+        <li>No se exige CUIT como dato obligatorio único (actualmente figura como "DNI/CUIT").</li>
+        <li>No se solicita documentación de respaldo (servicio/factura a nombre del solicitante).</li>
+      </ul>
       <div class="info">
-        <p><strong>Impacto en su negocio:</strong> Pérdida de tiempo calculando intereses manualmente, falta de control sobre pagos parciales, y dificultad para mantener un registro claro de las cuentas de sus clientes.</p>
+        <p>
+          <strong>Impacto en su negocio:</strong> Pérdida de tiempo calculando intereses manualmente, falta de control sobre pagos parciales,
+          y menor respaldo documental en solicitudes online.
+        </p>
       </div>
     </section>
 
     <section id="solucion">
       <h2>2) Solución Propuesta</h2>
-      <p>Implementaremos <strong>dos mejoras específicas</strong> que resolverán estos problemas:</p>
+      <p>Implementaremos <strong>tres mejoras específicas</strong> sobre el sistema y el formulario de solicitud ya existente:</p>
       
       <div class="grid">
         <div class="card">
           <h3><i class="fa-solid fa-percentage" style="color:#ef4444; margin-right:8px"></i>Interés por Mora Automático</h3>
           <ul>
-            <li>Configuración de <strong>porcentaje de interés diario</strong></li>
-            <li>Cálculo automático basado en días de atraso</li>
-            <li>Opción de cobrar <strong>con o sin interés</strong> según el caso</li>
+            <li>Configuración de <strong>porcentaje de interés diario</strong>.</li>
+            <li>Cálculo automático basado en días de atraso.</li>
+            <li>Opción de cobrar <strong>con o sin interés</strong> según el caso.</li>
           </ul>
         </div>
         <div class="card">
           <h3><i class="fa-solid fa-coins" style="color:#16a34a; margin-right:8px"></i>Pagos Parciales</h3>
           <ul>
-            <li>Registro de <strong>adelantos y pagos parciales</strong></li>
-            <li>Comprobantes automáticos de adelanto</li>
-            <li>Interés calculado sobre <strong>saldo restante</strong></li>
+            <li>Registro de <strong>adelantos y pagos parciales</strong>.</li>
+            <li>Generación de comprobantes automáticos de adelanto.</li>
+            <li>Interés calculado sobre el <strong>saldo restante</strong> de la cuota.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-user-check" style="color:#3b82f6; margin-right:8px"></i>Validación del Solicitante (CUIT, Servicio y Firma Digital)</h3>
+          <ul>
+            <li>
+              Actualización del formulario de solicitud <strong>ya existente</strong>, sin crear nuevas vistas, para exigir:
+              <ul>
+                <li>Campo de <strong>CUIT obligatorio</strong> (separado, reemplazando el campo actual “DNI/CUIT”).</li>
+                <li>Campo para <strong>adjuntar un servicio/factura</strong> a nombre del solicitante (comprobante de domicilio/identidad comercial).</li>
+              </ul>
+            </li>
+            <li>
+              Implementación de una <strong>validación automática contra la central de deudores del BCRA</strong> usando el CUIT informado.
+            </li>
+            <li>
+              Clasificación interna del perfil (por ejemplo: “Aprobado preliminar”, “Revisión”, “No elegible”) según las reglas comerciales que usted defina.
+            </li>
+            <li>
+              Registro de toda la información (CUIT, resultado BCRA y documento adjunto) asociada a la solicitud para respaldo y auditoría.
+            </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SIMULADOR INTERÉS ==================== -->
+    <section id="detalle-validacion">
+      <h2>3) Detalle de la Validación con CUIT, Servicio y Firma Digital</h2>
+      <div class="card">
+        <h3>Flujo propuesto sobre el formulario actual</h3>
+        <ul>
+          <li>
+            <strong>1. Completar CUIT:</strong> el solicitante ingresa su CUIT, que se valida a nivel de formato y se guarda como campo obligatorio principal de identificación.
+          </li>
+          <li>
+            <strong>2. Adjuntar servicio/factura:</strong> el sistema permite subir un archivo (por ejemplo, PDF o imagen) de un
+            <strong>servicio o factura a nombre del solicitante</strong>, como comprobante adicional de identidad y domicilio.
+          </li>
+          <li>
+            <strong>4. Consulta automática al BCRA:</strong> al enviar la solicitud, el sistema utiliza el CUIT para realizar la
+            <strong>consulta a la central de deudores del BCRA</strong> y obtiene la situación crediticia pública.
+          </li>
+          <li>
+            <strong>5. Evaluación del perfil:</strong> con la respuesta del BCRA, se genera un <strong>perfil de riesgo preliminar</strong>
+            y se clasifica según reglas internas configurables (por ejemplo, situaciones 1–2: Aprobado; 3: Revisión; 4–5: No elegible).
+          </li>
+          <li>
+            <strong>6. Registro para seguimiento:</strong> toda la información (datos del formulario, CUIT, documento adjunto, firma y resultado BCRA)
+            queda guardada en el sistema, disponible para su revisión desde el panel interno.
+          </li>
+        </ul>
+        <div class="tip">
+          <strong>Resultado:</strong> cada solicitud queda respaldada por <strong>datos formales (CUIT) y documentación (servicio/factura)</strong>,
+          reduciendo el riesgo y fortaleciendo la trazabilidad de cada operación.
+        </div>
+      </div>
+    </section>
+
+    <section id="video-bcra">
+      <h2>3.1) Video Demostrativo - Consulta al BCRA</h2>
+      <div class="card">
+        <h3>¿Cómo funciona la consulta automática al BCRA?</h3>
+        <p>Este video muestra el proceso completo de consulta a la Central de Deudores del BCRA que se ejecuta automáticamente cuando un cliente completa su solicitud con CUIT.</p>
+        <div style="text-align: center; margin: 20px 0;">
+          <video controls style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <source src="video-bcra-demo.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video. <a href="video-bcra-demo.mp4">Descarga el video aquí</a>.
+          </video>
+        </div>
+
+        <div class="info" style="margin-top:16px;">
+          <p>
+            <strong>Ejemplo de Reporte BCRA:</strong> El sistema genera automáticamente un informe PDF con los resultados de la consulta.
+            <a href="repote_bcra.pdf" target="_blank" style="color:#3b82f6; text-decoration:underline; margin-left:8px;">
+              <i class="fa-solid fa-file-pdf" style="margin-right:4px;"></i>Descargar Ejemplo de Reporte BCRA
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section id="simulador-interes">
-      <h2>3) Ejemplo de Funcionamiento</h2>
+      <h2>5) Ejemplo de Funcionamiento – Interés por Mora</h2>
       <div class="card">
         <h3>Cálculo de Interés por Mora</h3>
         <p><strong>Cuota original:</strong> $10,000<br />
@@ -157,9 +231,8 @@
       </div>
     </section>
 
-    <!-- ==================== EJEMPLO ADELANTO ==================== -->
     <section id="ejemplo-adelanto">
-      <h2>4) Comprobante de Adelanto</h2>
+      <h2>6) Comprobante de Adelanto</h2>
       <div class="card">
         <h3>Ejemplo de Comprobante Automático</h3>
         <table>
@@ -171,56 +244,84 @@
             <tr><th>Saldo Restante</th><td>$8,000</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:10px; font-size:.9rem; color:#64748b">Se genera automáticamente cuando registra un pago parcial. Las cuotas con adelanto se identifican visualmente en el sistema.</p>
+        <p style="margin-top:10px; font-size:.9rem; color:#64748b">
+          Se genera automáticamente cuando registra un pago parcial. Las cuotas con adelanto se identifican visualmente en el sistema.
+        </p>
       </div>
     </section>
 
-    <!-- ==================== PRESUPUESTO ==================== -->
     <section id="presupuesto">
-      <h2>5) Presupuesto</h2>
-      <div class="grid">
+      <h2>7) Presupuesto Detallado</h2>
+      <p>El desarrollo se divide en tres mejoras específicas, cada una con un costo de <strong>USD $30</strong> (1 hora de desarrollo), totalizando <strong>USD $90</strong>.</p>
+
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
         <div class="card">
-          <h3>Desarrollo Requerido</h3>
+          <h3><i class="fa-solid fa-percentage" style="color:#ef4444; margin-right:8px"></i>1. Interés por Mora Automático</h3>
           <ul>
-            <li>Configuración de interés diario en empresa</li>
-            <li>Cálculo automático de interés por mora</li>
-            <li>Registro de pagos parciales y adelantos</li>
-            <li>Generación de comprobantes automáticos</li>
-            <li>Pruebas y ajustes finales</li>
+            <li>Configuración de porcentaje de interés diario.</li>
+            <li>Cálculo automático basado en días de atraso.</li>
+            <li>Opción de cobrar con o sin interés según el caso.</li>
           </ul>
+          <p style="margin-top:12px; font-weight:600; color:#0f172a">Costo: <strong>USD $30</strong></p>
         </div>
         <div class="card">
-          <h3>Inversión</h3>
-          <table style="margin-top:12px">
-            <tbody>
-              <tr><th>Horas de Desarrollo</th><td>1.5 horas</td></tr>
-              <tr><th>Tarifa por Hora</th><td>USD $30</td></tr>
-              <tr style="background:#f8fafc"><th><strong>Total</strong></th><td><strong>USD $45</strong></td></tr>
-            </tbody>
-          </table>
-          <div class="tip" style="margin-top:12px">
-            <strong>Incluye:</strong> Desarrollo, pruebas, despliegue y soporte post-implementación.
-          </div>
+          <h3><i class="fa-solid fa-coins" style="color:#16a34a; margin-right:8px"></i>2. Pagos Parciales y Adelantos</h3>
+          <ul>
+            <li>Registro de adelantos y pagos parciales.</li>
+            <li>Generación de comprobantes automáticos.</li>
+            <li>Interés calculado sobre el saldo restante.</li>
+          </ul>
+          <p style="margin-top:12px; font-weight:600; color:#0f172a">Costo: <strong>USD $30</strong></p>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-user-check" style="color:#3b82f6; margin-right:8px"></i>3. Validación con BCRA</h3>
+          <ul>
+            <li>CUIT obligatorio como identificador principal.</li>
+            <li>Adjunto de servicio/factura a nombre del solicitante.</li>
+            <li>Consulta automática al BCRA y clasificación de perfil.</li>
+          </ul>
+          <p style="margin-top:12px; font-weight:600; color:#0f172a">Costo: <strong>USD $30</strong></p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px; text-align:center;">
+        <h3>Total de Inversión</h3>
+        <table style="margin:0 auto; max-width:400px;">
+          <tbody>
+            <tr><th>Horas Totales de Desarrollo</th><td>3 horas</td></tr>
+            <tr><th>Tarifa por Hora</th><td>USD $30</td></tr>
+            <tr style="background:#f8fafc">
+              <th><strong>Total</strong></th>
+              <td><strong>USD $90</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip" style="margin-top:12px">
+          <strong>Incluye:</strong> Desarrollo, pruebas, despliegue y soporte post-implementación por 30 días.
         </div>
       </div>
     </section>
 
     <section>
-      <h2>6) Beneficios Inmediatos</h2>
+      <h2>8) Beneficios Inmediatos</h2>
       <ul>
-        <li><strong>Ahorro de tiempo:</strong> No más cálculos manuales de intereses</li>
-        <li><strong>Mayor control:</strong> Registro completo de pagos parciales</li>
-        <li><strong>Flexibilidad:</strong> Puede elegir aplicar o no el interés según el caso</li>
-        <li><strong>Profesionalismo:</strong> Comprobantes automáticos para sus clientes</li>
+        <li><strong>Ahorro de tiempo:</strong> No más cálculos manuales de intereses.</li>
+        <li><strong>Mayor control:</strong> Registro completo de pagos parciales y estado de cuenta.</li>
+        <li><strong>Respaldo documental:</strong> Cada solicitud queda asociada a un CUIT y un servicio/factura.</li>
+        <li><strong>Mejor análisis de riesgo:</strong> Consulta automática al BCRA e interpretación a partir de reglas comerciales propias.</li>
       </ul>
     </section>
 
     <section>
-      <h2>7) Próximos Pasos</h2>
-      <p>Una vez aprobado el presupuesto, el desarrollo se completará en <strong>1 día hábil</strong>. Incluye implementación, pruebas y capacitación básica sobre las nuevas funciones.</p>
-      
+      <h2>9) Próximos Pasos</h2>
+      <p>
+        Una vez aprobado el presupuesto, el desarrollo se completará en un plazo estimado de <strong>1 a 2 días hábiles</strong>. 
+        Incluye implementación, pruebas y una breve capacitación sobre las nuevas funciones incorporadas al formulario de solicitud.
+      </p>
       <div class="info">
-        <p><strong>¿Listo para mejorar su sistema?</strong> Confirme este presupuesto y en 24 horas tendrá estas funcionalidades operativas en su sistema.</p>
+        <p>
+          <strong>¿Listo para avanzar?</strong> Con estas mejoras, cada solicitud quedará mejor respaldada y con un proceso de evaluación más rápido y seguro.
+        </p>
       </div>
     </section>
 
