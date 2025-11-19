@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrega de Desarrollo - Edward General Services | ADEMA Sistemas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: #e2e8f0;
+            --accent: #0f172a;
+            --success: #16a34a;
+            --info: #3b82f6;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 12px 30px rgba(2, 6, 23, .08);
+            --shadow-lg: 0 20px 40px rgba(2, 6, 23, .12);
+            --radius: 12px;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 40px 20px; background: var(--bg); color: var(--text); 
+            font-family: var(--font); line-height: 1.7;
+        }
+        .container {
+            max-width: 1100px; margin: 0 auto; background: var(--surface); 
+            border-top: 6px solid var(--success); border-radius: var(--radius); 
+            box-shadow: var(--shadow); padding: 48px 56px;
+        }
+        header { text-align: center; margin-bottom: 48px; }
+        header img { max-width: 160px; margin-bottom: 16px; }
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 10px; 
+            padding: 12px 24px; background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white; border-radius: 999px; font-weight: 600; font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+        }
+        h1 { font-size: 2.5rem; margin: 16px 0 8px; letter-spacing: -.5px; color: var(--text); }
+        header > p { color: var(--muted); font-size: 1.1rem; margin: 0; }
+        
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;
+            text-decoration: none; color: var(--info); font-weight: 500;
+            transition: gap 0.2s ease;
+        }
+        .back-link:hover { gap: 12px; }
+
+        .intro-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid var(--info); padding: 24px 28px; 
+            border-radius: 8px; margin-bottom: 48px;
+        }
+        .intro-card p { margin: 0; font-size: 1.05rem; line-height: 1.8; }
+        .intro-card strong { color: var(--text); }
+
+        h2 {
+            color: var(--accent); font-size: 1.1rem; text-transform: uppercase; 
+            letter-spacing: 1.8px; margin: 48px 0 24px; padding-bottom: 12px; 
+            border-bottom: 2px solid var(--border);
+        }
+
+        .feature {
+            background: var(--surface); border: 1px solid var(--border); 
+            border-radius: var(--radius); padding: 32px; margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-4px); box-shadow: var(--shadow-lg);
+        }
+        .feature-header {
+            display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+        }
+        .feature-icon {
+            width: 56px; height: 56px; border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; flex-shrink: 0;
+        }
+        .icon-red { background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); color: var(--danger); }
+        .icon-green { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: var(--success); }
+        .icon-blue { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: var(--info); }
+        
+        .feature h3 { margin: 0; font-size: 1.5rem; color: var(--text); }
+        .feature-description { color: var(--muted); margin: 16px 0 20px; font-size: 1.05rem; }
+        
+        .feature-list {
+            list-style: none; padding: 0; margin: 0 0 24px 0;
+        }
+        .feature-list li {
+            display: flex; align-items: flex-start; gap: 12px; 
+            margin-bottom: 12px; color: var(--muted);
+        }
+        .feature-list i {
+            color: var(--success); margin-top: 4px; font-size: 1.1rem; flex-shrink: 0;
+        }
+
+        .media-container {
+            margin-top: 28px; padding: 20px; background: #f8fafc; 
+            border-radius: 8px; border: 1px solid var(--border);
+        }
+        .media-container video,
+        .media-container img {
+            max-width: 100%; height: auto; border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: block; margin: 0 auto;
+        }
+        .media-label {
+            display: block; font-weight: 600; color: var(--text); 
+            margin-bottom: 12px; font-size: 1rem;
+        }
+
+        .download-box {
+            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+            border-left: 4px solid var(--warn); padding: 20px 24px; 
+            border-radius: 8px; margin-top: 20px;
+        }
+        .download-box p { margin: 0 0 12px 0; color: var(--text); font-weight: 500; }
+        .download-link {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 20px; background: var(--danger); color: white;
+            text-decoration: none; border-radius: 6px; font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .download-link:hover {
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .example-box {
+            background: #f8fafc; border: 1px solid var(--border); 
+            border-radius: 8px; padding: 20px; margin-top: 20px;
+        }
+        .example-box h4 {
+            margin: 0 0 12px 0; color: var(--text); font-size: 1.1rem;
+        }
+        .calc-row {
+            display: flex; justify-content: space-between; padding: 8px 0;
+            border-bottom: 1px solid var(--border); color: var(--muted);
+        }
+        .calc-row:last-child { border-bottom: none; font-weight: 600; color: var(--text); }
+        .calc-row strong { color: var(--text); }
+
+        .summary-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid var(--success); border-radius: var(--radius);
+            padding: 32px; margin: 48px 0; text-align: center;
+        }
+        .summary-box h2 {
+            border: none; margin: 0 0 16px 0; padding: 0; 
+            text-transform: none; letter-spacing: normal; font-size: 1.8rem;
+        }
+        .summary-box p { color: var(--muted); font-size: 1.05rem; margin-bottom: 8px; }
+        .summary-items {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px; margin: 24px 0;
+        }
+        .summary-item {
+            background: white; padding: 20px; border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .summary-item-icon {
+            font-size: 2rem; margin-bottom: 8px;
+        }
+        .summary-item h4 { margin: 8px 0; font-size: 1rem; color: var(--text); }
+        .summary-item p { margin: 0; font-size: 0.9rem; }
+
+        .cta-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid var(--info); border-radius: var(--radius);
+            padding: 32px; margin: 40px 0; text-align: center;
+        }
+        .cta-box h2 {
+            border: none; margin: 0 0 12px 0; padding: 0; 
+            text-transform: none; letter-spacing: normal; font-size: 1.6rem;
+        }
+        .cta-box p { color: var(--muted); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        .footer {
+            text-align: center; margin-top: 48px; padding-top: 24px; 
+            border-top: 1px solid var(--border); color: #94a3b8; font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .container { padding: 28px 22px; }
+            h1 { font-size: 2rem; }
+            .feature { padding: 24px; }
+            .summary-items { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Volver al Presupuesto
+        </a>
+
+        <header>
+            <img src="https://ademasistemas.com/static/landing/images/logo.svg" alt="Logo ADEMA Sistemas" onerror="this.onerror=null;this.src='https://placehold.co/160x40/0f172a/ffffff?text=AdemaSistemas';">
+         
+            <h1>Entrega de Desarrollo</h1>
+            <p>Sistema de Cuotas Mejorado · Edward General Services</p>
+        </header>
+
+        <div class="intro-card">
+            <p>
+                <strong>Estimado Cliente:</strong><br>
+                Es un placer presentarle las <strong>cuatro funcionalidades implementadas</strong> en su sistema de cuotas. 
+                A continuación, podrá ver en detalle cómo funciona cada una (incluyendo un <strong>bonus track especial</strong>), 
+                con demostraciones visuales y ejemplos prácticos de uso.
+            </p>
+        </div>
+
+        <section>
+            <h2>Funcionalidades Implementadas</h2>
+
+            <!-- Funcionalidad 1: Interés por Mora -->
+            <div class="feature">
+                <div class="feature-header">
+                    <div class="feature-icon icon-red">
+                        <i class="fa-solid fa-percentage"></i>
+                    </div>
+                    <div>
+                        <h3>1. Interés por Mora Automático</h3>
+                    </div>
+                </div>
+                <p class="feature-description">
+                    El sistema ahora calcula automáticamente los intereses por mora según los días de atraso, 
+                    eliminando el trabajo manual y reduciendo errores. Usted decide en cada caso si aplica o no el interés.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Configuración flexible:</strong> Define el porcentaje de interés diario según su política comercial.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Cálculo automático:</strong> El sistema calcula el interés basándose en los días transcurridos desde el vencimiento.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Opción de condonación:</strong> Puede decidir cobrar con o sin interés según cada situación particular.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Transparencia total:</strong> El cliente visualiza claramente el desglose del interés aplicado.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4><i class="fa-solid fa-calculator" style="color:#ef4444; margin-right:8px;"></i>Ejemplo de Cálculo</h4>
+                    <div class="calc-row">
+                        <span>Cuota original:</span>
+                        <strong>$10,000</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span>Adelanto aplicado:</span>
+                        <strong>$2,000</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span>Base para interés:</span>
+                        <strong>$8,000</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span>% Interés diario:</span>
+                        <strong>0.5%</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span>Días de atraso:</span>
+                        <strong>5 días</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span>Interés acumulado:</span>
+                        <strong>$200</strong>
+                    </div>
+                    <div class="calc-row" style="background:#fef2f2; padding:12px; border-radius:6px; margin-top:8px;">
+                        <span style="font-size:1.1rem;">Total a pagar:</span>
+                        <strong style="font-size:1.2rem; color:#ef4444;">$10,200</strong>
+                    </div>
+                </div>
+
+                <div class="media-container">
+                    <span class="media-label"><i class="fa-solid fa-video" style="margin-right:8px;"></i>Video Demostrativo - Interés por Mora</span>
+                    <p style="color:var(--muted); margin-bottom:16px;">
+                        Este video muestra cómo el sistema calcula automáticamente el interés por mora y permite decidir si aplicarlo o no.
+                    </p>
+                    <video controls style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <source src="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets2/video_interes_mora.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video. 
+                        <a href="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets2/video_interes_mora.mp4" 
+                           style="color:#3b82f6; text-decoration:underline;">Descarga el video aquí</a>.
+                    </video>
+                    <p style="text-align:center; color:var(--muted); font-size:0.9rem; margin-top:12px;">
+                        <em>El sistema muestra claramente el interés calculado y permite al usuario decidir si aplicarlo o no.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Funcionalidad 2: Pagos Parciales -->
+            <div class="feature">
+                <div class="feature-header">
+                    <div class="feature-icon icon-green">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <div>
+                        <h3>2. Registro de Pagos Parciales y Adelantos</h3>
+                    </div>
+                </div>
+                <p class="feature-description">
+                    Ahora puede registrar pagos parciales y adelantos sobre las cuotas, manteniendo un control 
+                    preciso del saldo pendiente y generando comprobantes automáticos para cada transacción.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Adelantos flexibles:</strong> Registre pagos parciales de cualquier monto sobre una cuota.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Comprobantes automáticos:</strong> El sistema genera un recibo detallado por cada adelanto registrado.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Control de saldo:</strong> Visualice en tiempo real el saldo restante de cada cuota.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Interés proporcional:</strong> Los intereses por mora se calculan únicamente sobre el saldo pendiente.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Historial completo:</strong> Acceda al historial de todos los pagos parciales realizados.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4><i class="fa-solid fa-receipt" style="color:#16a34a; margin-right:8px;"></i>Ejemplo de Comprobante de Adelanto</h4>
+                    <p style="color:var(--muted); margin-bottom:16px;">
+                        El sistema genera automáticamente un comprobante profesional por cada pago parcial o adelanto registrado.
+                    </p>
+                    <div style="text-align: center;">
+                        <embed src="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets2/comprobante_adelanto.pdf" 
+                               type="application/pdf" 
+                               style="width:100%; height:600px; border: 1px solid var(--border); border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>
+                    <div style="margin-top:16px; text-align:center;">
+                        <a href="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets2/comprobante_adelanto.pdf" 
+                           target="_blank" 
+                           style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--success); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; transition: transform 0.2s ease;">
+                            <i class="fa-solid fa-file-pdf"></i>
+                            Descargar Ejemplo de Comprobante
+                        </a>
+                    </div>
+                </div>
+
+                <div class="media-container">
+                    <span class="media-label"><i class="fa-solid fa-video" style="margin-right:8px;"></i>Video Demostrativo - Pagos Parciales y Adelantos</span>
+                    <p style="color:var(--muted); margin-bottom:16px;">
+                        Este video muestra el proceso completo de registro de adelantos y pagos parciales con generación automática de comprobantes.
+                    </p>
+                    <video controls style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <source src="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets2/video_adelantos.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video. 
+                        <a href="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets2/video_adelantos.mp4" 
+                           style="color:#3b82f6; text-decoration:underline;">Descarga el video aquí</a>.
+                    </video>
+                    <p style="text-align:center; color:var(--muted); font-size:0.9rem; margin-top:12px;">
+                        <em>Interfaz intuitiva para registrar adelantos con generación automática de comprobantes.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Funcionalidad 3: Validación BCRA -->
+            <div class="feature">
+                <div class="feature-header">
+                    <div class="feature-icon icon-blue">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <div>
+                        <h3>3. Validación Automática con BCRA</h3>
+                    </div>
+                </div>
+                <p class="feature-description">
+                    El formulario de solicitud ahora valida automáticamente a los solicitantes contra la Central de Deudores 
+                    del BCRA, requiriendo CUIT y documentación de respaldo para fortalecer el análisis crediticio.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>CUIT obligatorio:</strong> El formulario exige el CUIT como identificador principal del solicitante.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Documentación respaldatoria:</strong> Permite adjuntar servicio o factura a nombre del solicitante.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Consulta automática al BCRA:</strong> Se realiza la verificación crediticia en tiempo real al enviar la solicitud.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Clasificación de perfil:</strong> El sistema categoriza automáticamente el riesgo según reglas configurables.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Reporte detallado:</strong> Genera un PDF con el resultado completo de la consulta al BCRA.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> <strong>Trazabilidad completa:</strong> Toda la información queda registrada para auditorías y seguimiento.</li>
+                </ul>
+
+                <div class="media-container">
+                    <span class="media-label"><i class="fa-solid fa-video" style="margin-right:8px;"></i>Video Demostrativo - Consulta al BCRA</span>
+                    <p style="color:var(--muted); margin-bottom:16px;">
+                        Este video muestra el proceso completo de consulta a la Central de Deudores del BCRA que se ejecuta 
+                        automáticamente cuando un cliente completa su solicitud con CUIT.
+                    </p>
+                    <video controls style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <source src="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets/video-bcra-demo.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video. 
+                        <a href="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets/video-bcra-demo.mp4" 
+                           style="color:#3b82f6; text-decoration:underline;">Descarga el video aquí</a>.
+                    </video>
+                </div>
+
+                <div class="download-box">
+                    <p><i class="fa-solid fa-file-pdf" style="color:#ef4444; margin-right:8px; font-size:1.2rem;"></i>
+                       <strong>Ejemplo de Reporte Generado</strong>
+                    </p>
+                    <p style="margin-bottom:16px; color:var(--muted);">
+                        El sistema genera automáticamente un informe PDF completo con los resultados de cada consulta al BCRA.
+                    </p>
+                    <a href="https://github.com/adema-websites/presupuesto-edward-services-4/releases/download/assets/repote_bcra.pdf" 
+                       target="_blank" class="download-link">
+                        <i class="fa-solid fa-download"></i>
+                        Descargar Ejemplo de Reporte BCRA
+                    </a>
+                </div>
+
+                <div class="example-box" style="margin-top:24px;">
+                    <h4><i class="fa-solid fa-list-check" style="color:#3b82f6; margin-right:8px;"></i>Flujo de Validación</h4>
+                    <ol style="color:var(--muted); padding-left:20px; margin:12px 0 0 0;">
+                        <li style="margin-bottom:8px;"><strong>El solicitante ingresa su CUIT</strong> (validación de formato automática)</li>
+                        <li style="margin-bottom:8px;"><strong>Adjunta servicio/factura</strong> como comprobante de identidad/domicilio</li>
+                        <li style="margin-bottom:8px;"><strong>Al enviar la solicitud</strong>, el sistema consulta automáticamente al BCRA</li>
+                        <li style="margin-bottom:8px;"><strong>Se genera un perfil de riesgo</strong> según reglas comerciales configurables</li>
+                        <li style="margin-bottom:8px;"><strong>Se crea un reporte PDF</strong> con toda la información de la consulta</li>
+                        <li><strong>Toda la información queda registrada</strong> para seguimiento y auditoría</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Funcionalidad 4: BONUS TRACK - Firma Digital + Consulta Online -->
+            <div class="feature" style="border: 2px solid var(--warn); background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 5%, #ffffff 100%);">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <span style="display: inline-block; padding: 8px 16px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; border-radius: 999px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">
+                        <i class="fa-solid fa-gift" style="margin-right: 6px;"></i>BONUS TRACK
+                    </span>
+                </div>
+                <div class="feature-header">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: var(--warn); width: 64px; height: 64px;">
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+                    <div>
+                        <h3>4. Firma Digital Online + Consulta de Contrato</h3>
+                    </div>
+                </div>
+                <p class="feature-description">
+                    Funcionalidad adicional que digitaliza completamente el proceso de firma y seguimiento de contratos. 
+                    Los clientes pueden firmar digitalmente sus contratos desde cualquier dispositivo y consultar el estado 
+                    de su crédito en tiempo real 24/7.
+                </p>
+                
+                <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+                    <h4 style="margin: 0 0 16px 0; color: var(--text); font-size: 1.2rem;">
+                        <i class="fa-solid fa-pen-to-square" style="color: var(--warn); margin-right: 10px;"></i>
+                        Parte 1: Firma Digital del Contrato
+                    </h4>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Generación automática del contrato:</strong> Una vez confirmado el crédito, el sistema genera el documento inicial.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Link único de firma:</strong> Se genera un enlace (hash) exclusivo para que el cliente firme desde cualquier lugar.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Experiencia del cliente:</strong> El cliente revisa los términos, plan de cuotas, ingresa nombre y DNI, y firma digitalmente.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Captura de ubicación:</strong> Opcionalmente, se solicita permiso para captar la ubicación geográfica de la firma.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Validación legal completa:</strong> El PDF firmado incluye:
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                <li style="margin-bottom: 6px;">✓ Fecha y hora exacta de la firma</li>
+                                <li style="margin-bottom: 6px;">✓ Nombre completo del firmante</li>
+                                <li style="margin-bottom: 6px;">✓ Número de documento (DNI)</li>
+                                <li style="margin-bottom: 6px;">✓ Dirección IP del dispositivo</li>
+                                <li style="margin-bottom: 6px;">✓ Tipo de dispositivo utilizado</li>
+                                <li style="margin-bottom: 6px;">✓ Ubicación GPS (si fue autorizada)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="example-box" style="margin-top: 20px;">
+                        <h4><i class="fa-solid fa-route" style="color:#f59e0b; margin-right:8px;"></i>Flujo del Proceso de Firma</h4>
+                        <ol style="color:var(--muted); padding-left: 20px; margin: 12px 0 0 0;">
+                            <li style="margin-bottom: 10px;"><strong>Confirmar el crédito</strong> → El sistema genera el documento inicial (sin firma)</li>
+                            <li style="margin-bottom: 10px;"><strong>Realizar acción de firma</strong> → Se genera un link único (hash) para el cliente</li>
+                            <li style="margin-bottom: 10px;"><strong>Cliente accede al link</strong> → Revisa términos, datos y plan de cuotas</li>
+                            <li style="margin-bottom: 10px;"><strong>Cliente firma digitalmente</strong> → Ingresa nombre y DNI, autoriza ubicación</li>
+                            <li style="margin-bottom: 10px;"><strong>Recargar la vista</strong> → El sistema indica que el documento está firmado</li>
+                            <li><strong>Descargar PDF firmado</strong> → Incluye todos los datos de validación legal</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+                    <h4 style="margin: 0 0 16px 0; color: var(--text); font-size: 1.2rem;">
+                        <i class="fa-solid fa-desktop" style="color: var(--info); margin-right: 10px;"></i>
+                        Parte 2: Dashboard del Cliente - Consulta Online
+                    </h4>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Acceso seguro con clave:</strong> Usted establece una clave personalizada (ej: "Pepito") para cada cliente.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Link de consulta:</strong> Comparte el enlace + clave con el cliente para acceso 24/7.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Panel completo del cliente:</strong> Desde cualquier dispositivo, el cliente puede ver:
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                <li style="margin-bottom: 6px;">📋 Detalles completos de su crédito</li>
+                                <li style="margin-bottom: 6px;">📅 Agendar recordatorio del próximo vencimiento (notificación en celular)</li>
+                                <li style="margin-bottom: 6px;">💰 Monto pagado y saldo restante en tiempo real</li>
+                                <li style="margin-bottom: 6px;">📊 Cantidad de cuotas pagadas y cuotas vencidas</li>
+                                <li style="margin-bottom: 6px;">📝 Historial detallado de todos los pagos realizados</li>
+                                <li style="margin-bottom: 6px;">⏰ Próximos vencimientos</li>
+                                <li style="margin-bottom: 6px;">⚠️ Detalle de intereses por mora (si aplica)</li>
+                            </ul>
+                        </li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Actualización en tiempo real:</strong> Toda la información se refleja instantáneamente tras cada pago.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> <strong>Responsive:</strong> Funciona perfectamente en celular, tablet o computadora.</li>
+                    </ul>
+                </div>
+
+                <div class="media-container">
+                    <span class="media-label"><i class="fa-solid fa-play-circle" style="margin-right:8px;"></i>Demostración Completa</span>
+                    <p style="color:var(--muted); margin-bottom:16px;">
+                        Video mostrando el proceso completo: generación del contrato, firma digital con captura de datos, 
+                        y navegación por el dashboard del cliente.
+                    </p>
+                    <img src="https://via.placeholder.com/800x450/fef3c7/f59e0b?text=Demo+Firma+Digital+%2B+Consulta+Online" 
+                         alt="Demostración de firma digital y consulta online">
+                    <p style="text-align:center; color:var(--muted); font-size:0.9rem; margin-top:12px;">
+                        <em>Proceso completo desde la firma digital hasta la consulta del estado del contrato por parte del cliente.</em>
+                    </p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-left: 4px solid var(--info); padding: 20px 24px; border-radius: 8px; margin-top: 24px;">
+                    <p style="margin: 0 0 8px 0; color: var(--text); font-weight: 600; font-size: 1.05rem;">
+                        <i class="fa-solid fa-lightbulb" style="color: var(--warn); margin-right: 8px;"></i>
+                        Ventajas de esta Funcionalidad:
+                    </p>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px; color: var(--muted);">
+                        <li style="margin-bottom: 6px;"><strong>Validez legal:</strong> Firma digital con todos los datos de trazabilidad necesarios</li>
+                        <li style="margin-bottom: 6px;"><strong>Comodidad:</strong> El cliente firma desde su casa, sin necesidad de desplazarse</li>
+                        <li style="margin-bottom: 6px;"><strong>Transparencia:</strong> El cliente ve su estado de cuenta en tiempo real</li>
+                        <li style="margin-bottom: 6px;"><strong>Menos consultas:</strong> Reduce llamadas y mensajes preguntando por saldos</li>
+                        <li style="margin-bottom: 6px;"><strong>Recordatorios automáticos:</strong> El cliente programa alertas para no olvidar pagos</li>
+                        <li><strong>Profesionalismo:</strong> Mejora significativamente la imagen de su negocio</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resumen de Beneficios -->
+        <div class="summary-box">
+            <h2><i class="fa-solid fa-star" style="color:#f59e0b; margin-right:12px;"></i>Beneficios Inmediatos</h2>
+            <p>Las cuatro funcionalidades implementadas le proporcionan:</p>
+            
+            <div class="summary-items">
+                <div class="summary-item">
+                    <div class="summary-item-icon">⏱️</div>
+                    <h4>Ahorro de Tiempo</h4>
+                    <p>Cálculos automáticos eliminan el trabajo manual</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">📊</div>
+                    <h4>Mayor Control</h4>
+                    <p>Seguimiento completo de pagos y saldos</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">🛡️</div>
+                    <h4>Menor Riesgo</h4>
+                    <p>Validación crediticia automática con BCRA</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">📄</div>
+                    <h4>Respaldo Documental</h4>
+                    <p>Comprobantes y reportes automáticos</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">✅</div>
+                    <h4>Decisiones Informadas</h4>
+                    <p>Información clara para análisis de riesgo</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">🔍</div>
+                    <h4>Trazabilidad Total</h4>
+                    <p>Historial completo para auditorías</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">✍️</div>
+                    <h4>Firma Digital</h4>
+                    <p>Contratos firmados con validez legal desde cualquier lugar</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-item-icon">📱</div>
+                    <h4>Autoservicio 24/7</h4>
+                    <p>Clientes consultan su estado sin necesidad de llamar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Llamada a la acción -->
+        <div class="cta-box">
+            <h2><i class="fa-solid fa-rocket" style="margin-right:12px;"></i>¡Todo Listo para Usar!</h2>
+            <p>
+                Las cuatro funcionalidades (incluyendo el bonus track de firma digital) están completamente implementadas, 
+                probadas y listas para ser utilizadas. Quedamos a su disposición para cualquier capacitación adicional 
+                o consulta sobre el uso del sistema.
+            </p>
+            <p style="margin-top:24px; margin-bottom:8px;">
+                <strong style="color:var(--text);">¿Necesita soporte o tiene consultas?</strong><br>
+                <span style="color:var(--muted);">Contáctenos en cualquier momento.</span>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Desarrollo completado el 19 de Noviembre de 2025</strong></p>
+            <p>&copy; 2025 ADEMA Sistemas · Soluciones de Software a Medida</p>
+        </div>
+    </div>
+</body>
+</html>
